@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,7 +14,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.romanmikhailenko.weaterapp.databinding.ActivityMainBinding
 import com.romanmikhailenko.weaterapp.databinding.FragmentHomeBinding
-
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 
@@ -21,15 +28,15 @@ class MainActivity : AppCompatActivity() {
     private val mBinding get() = _binding!!
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+
         val navController = this.findNavController(R.id.fragmentContainerView)
-        // Find reference to bottom navigation view
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        // Hook your navigation controller to bottom navigation view
         navView.setupWithNavController(navController)
 
     }

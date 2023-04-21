@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.romanmikhailenko.weaterapp.screens.settings.home.HomeFragment"
+        android:name="com.romanmikhailenko.weaterapp.screens.home.HomeFragment"
         android:label="Account"
         tools:layout="@layout/fragment_home" />
 
