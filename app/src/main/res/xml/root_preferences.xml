@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/units">
+
+        <ListPreference
+            app:key="units"
+            app:title="@string/units"
+            app:defaultValue="Metric"
+            app:entries="@array/unit_entries"
+            app:entryValues="@array/unit_values"
+            app:useSimpleSummaryProvider="true"
+            app:icon="@drawable/ic_straighten"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Appearance">
+
+        <ListPreference
+            app:icon="@drawable/ic_palette"
+            app:key="theme"
+            app:title="Theme"
+            app:defaultValue="Light"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_entries"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Common">
+
+        <ListPreference
+            app:icon="@drawable/ic_language"
+            app:key="language"
+            app:title="Language"
+            app:defaultValue="english"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

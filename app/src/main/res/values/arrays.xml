@@ -1,0 +1,35 @@
+<resources>
+    <string-array name="unit_entries">
+        <item>Metric</item>
+        <item>Standard</item>
+        <item>Imperial</item>
+    </string-array>
+
+    <string-array name="unit_values">
+        <item>Metric</item>
+        <item>Standard</item>
+        <item>Imperial</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>russian</item>
+        <item>english</item>
+    </string-array>
+
+
+</resources>

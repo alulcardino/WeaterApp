@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import com.romanmikhailenko.weaterapp.R
 import com.romanmikhailenko.weaterapp.databinding.FragmentHomeBinding
 import com.romanmikhailenko.weaterapp.utils.Resource
@@ -28,6 +29,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        val sharedPreferences = context?.let { PreferenceManager.getDefaultSharedPreferences(it) }
+
+        mBinding.textView.text = sharedPreferences?.getString("units", "")
         return mBinding.root
     }
 
@@ -37,22 +41,28 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-         viewModel.weatherLiveData.observe(viewLifecycleOwner) { response ->
-             when (response) {
-                 is Resource.Success -> {
-                     mBinding.textView.text = response.data?.main?.feels_like.toString()
-                 }
-                 is Resource.Error -> {
-                     response.data?.let {
-                         Log.e("checkData", "error : $it")
-                     }
-                 }
-                 is Resource.Loading -> {
+//        super.onViewCreated(view, savedInstanceState)
+//         viewModel.weatherLiveData.observe(viewLifecycleOwner) { response ->
+//             when (response) {
+//                 is Resource.Success -> {
+//                     mBinding.textView.text = response.data?.main?.feels_like.toString()
+//                 }
+//                 is Resource.Error -> {
+//                     response.data?.let {
+//                         Log.e("checkData", "error : $it")
+//                     }
+//                 }
+//                 is Resource.Loading -> {
+//                 }
+//             }
+//         }
 
-                 }
-             }
-         }
+        loadSettings()
+    }
+
+    private fun loadSettings() {
+        mBinding.textView.text = viewModel.getSharedPreferencesSettings().getString("units", "")
+
     }
 
 
