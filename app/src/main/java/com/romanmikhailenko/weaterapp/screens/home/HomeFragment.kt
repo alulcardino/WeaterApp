@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import com.romanmikhailenko.weaterapp.databinding.FragmentHomeBinding
+import com.romanmikhailenko.weaterapp.screens.home.adapters.MainViewPagerAdapter
+import com.romanmikhailenko.weaterapp.screens.home.model.Details
+import com.romanmikhailenko.weaterapp.screens.home.model.Item
+import com.romanmikhailenko.weaterapp.screens.home.model.MainInfo
 import com.romanmikhailenko.weaterapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +24,7 @@ class HomeFragment : Fragment() {
     private val mBinding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
+    private var adapter = MainViewPagerAdapter()
 
 
     override fun onCreateView(
@@ -27,7 +32,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-
+        mBinding.viewPager.adapter = adapter
+//        adapter.setItems()
         return mBinding.root
     }
 
@@ -39,31 +45,46 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        val listOfViewPager = mutableListOf<Item>()
+
 
         viewModel.setWeather()
         viewModel.setForecast()
 
-
-
-        viewModel.forecastLiveData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> {
-                    mBinding.textView.text = response.data?.list?.get(12)?.dt_txt
-                }
-                is Resource.Error -> {
-                    response.data?.let {
-                        Log.e("checkData", "error : $it")
-                    }
-                }
-                is Resource.Loading -> {
-                }
-            }
-        }
+//        viewModel.forecastLiveData.observe(viewLifecycleOwner) { response ->
+//            when (response) {
+//                is Resource.Success -> {
+//                   }
+//                is Resource.Error -> {
+//                    response.data?.let {
+//                        Log.e("checkData", "error : $it")
+//                    }
+//                }
+//                is Resource.Loading -> {
+//                }
+//            }
+//        }
 
         viewModel.weatherLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    mBinding.textView2.text = response.data?.dt.toString()
+                    listOfViewPager.add(0, MainInfo(
+                        response.data?.main?.temp.toString(),
+                        response.data?.main?.feels_like.toString(),
+                        "icon",
+                        response.data?.weather?.get(0)?.description.toString()
+                    ))
+
+                    listOfViewPager.add(1, Details(
+                        response.data?.sys?.sunrise.toString(),
+                        response.data?.sys?.sunset.toString(),
+                        response.data?.main?.humidity.toString(),
+                        response.data?.main?.pressure.toString(),
+                        response.data?.visibility.toString(),
+                        ))
+                    Log.d("kavo", listOfViewPager[1].toString())
+
+                    adapter.setItems(listOfViewPager)
                 }
                 is Resource.Error -> {
                     response.data?.let {
@@ -74,7 +95,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        listOfViewPager.clear()
     }
-
 
 }
