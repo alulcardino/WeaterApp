@@ -1,4 +1,4 @@
-package com.romanmikhailenko.weaterapp.model
+package com.romanmikhailenko.weaterapp.model.current
 
 data class Main(
     val feels_like: Double,

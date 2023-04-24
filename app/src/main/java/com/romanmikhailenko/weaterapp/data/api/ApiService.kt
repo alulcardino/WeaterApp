@@ -1,6 +1,7 @@
 package com.romanmikhailenko.weaterapp.data.api
 
-import com.romanmikhailenko.weaterapp.model.WeatherResponse
+import com.romanmikhailenko.weaterapp.model.current.WeatherResponse
+import com.romanmikhailenko.weaterapp.model.forecast.ForecastResponse
 import com.romanmikhailenko.weaterapp.utils.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -22,6 +23,6 @@ interface ApiService {
         @Query("lon") longitude: Double = 10.99,
         @Query("units") unit: String = "metrical",
         @Query("appid") appId: String = API_KEY
-    ): Response<WeatherResponse>
+    ): Response<ForecastResponse>
 
 }

@@ -1,4 +1,4 @@
-package com.romanmikhailenko.weaterapp.model
+package com.romanmikhailenko.weaterapp.model.forecast
 
 data class Coord(
     val lat: Double,
