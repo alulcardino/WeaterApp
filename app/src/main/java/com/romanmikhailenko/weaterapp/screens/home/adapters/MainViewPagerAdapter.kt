@@ -29,7 +29,6 @@ class MainViewPagerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("sho", position.toString())
         when (holder) {
             is MainViewHolder -> holder.bind(pages[position] as MainInfo)
             is DetailsViewHolder -> holder.bind(pages[position] as Details)

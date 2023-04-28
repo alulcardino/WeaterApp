@@ -5,10 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
-import com.romanmikhailenko.weaterapp.data.api.WeatherRepository
-import com.romanmikhailenko.weaterapp.model.current.WeatherResponse
-import com.romanmikhailenko.weaterapp.model.forecast.ForecastResponse
-import com.romanmikhailenko.weaterapp.model.forecast.Weather
+import com.romanmikhailenko.weaterapp.data.repositories.remote.WeatherRepository
+import com.romanmikhailenko.weaterapp.data.model.current.WeatherResponse
+import com.romanmikhailenko.weaterapp.data.model.forecast.ForecastResponse
 import com.romanmikhailenko.weaterapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,12 +31,12 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
 
 
     fun setWeather() {
-        sharedPreferences.getString("units", "metric")?.let { getForecast(44.34, 10.99, it) }
+        sharedPreferences.getString("units", "metric")?.let { getWeather(54.99, 73.37, it) }
     }
 
-    fun setForecast() {
-        sharedPreferences.getString("units", "metric")?.let { getWeather(44.34, 10.99, it) }
-    }
+//    fun setForecast() {
+//        sharedPreferences.getString("units", "metric")?.let { getForecast(44.34, 10.99, it) }
+//    }
 
     private fun getWeather(latitude: Double, longitude: Double, unit: String) =
         viewModelScope.launch {
@@ -52,16 +51,16 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
             }
         }
 
-    private fun getForecast(latitude: Double, longitude: Double, unit: String) =
-        viewModelScope.launch {
-            forecastLiveData.postValue(Resource.Loading())
-            val response = repository.getForecast(latitude, longitude, unit)
-            if (response.isSuccessful) {
-                response.body().let { res ->
-                    forecastLiveData.postValue(Resource.Success(res))
-                }
-            } else {
-                forecastLiveData.postValue(Resource.Error(message = response.message()))
-            }
-        }
+//    private fun getForecast(latitude: Double, longitude: Double, unit: String) =
+//        viewModelScope.launch {
+//            forecastLiveData.postValue(Resource.Loading())
+//            val response = repository.getForecast(latitude, longitude, unit)
+//            if (response.isSuccessful) {
+//                response.body().let { res ->
+//                    forecastLiveData.postValue(Resource.Success(res))
+//                }
+//            } else {
+//                forecastLiveData.postValue(Resource.Error(message = response.message()))
+//            }
+//        }
 }

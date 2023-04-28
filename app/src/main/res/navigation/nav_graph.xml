@@ -21,6 +21,22 @@
         android:id="@+id/location"
         android:name="com.romanmikhailenko.weaterapp.screens.location.LocationFragment"
         android:label="Albums"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/action_location_to_citiesFragment"
+            app:destination="@id/citiesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citiesFragment"
+        android:name="com.romanmikhailenko.weaterapp.screens.cities.CitiesFragment"
+        android:label="fragment_cities"
+        tools:layout="@layout/fragment_cities">
+
+    </fragment>
+    <action
+        android:id="@+id/action_citiesFragment_to_location"
+        app:destination="@id/location"
+        app:popUpTo="@id/citiesFragment"
+        app:popUpToInclusive="true" />
 
 </navigation>

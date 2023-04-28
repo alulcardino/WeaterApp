@@ -14,6 +14,7 @@ import com.romanmikhailenko.weaterapp.screens.home.model.Details
 import com.romanmikhailenko.weaterapp.screens.home.model.Item
 import com.romanmikhailenko.weaterapp.screens.home.model.MainInfo
 import com.romanmikhailenko.weaterapp.utils.Resource
+import com.romanmikhailenko.weaterapp.utils.TimeUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
 
 
         viewModel.setWeather()
-        viewModel.setForecast()
+        //viewModel.setForecast()
 
 //        viewModel.forecastLiveData.observe(viewLifecycleOwner) { response ->
 //            when (response) {
@@ -76,14 +77,12 @@ class HomeFragment : Fragment() {
                     ))
 
                     listOfViewPager.add(1, Details(
-                        response.data?.sys?.sunrise.toString(),
-                        response.data?.sys?.sunset.toString(),
+                        TimeUtils.getTime(response.data?.sys?.sunrise ?: 0),
+                        TimeUtils.getTime(response.data?.sys?.sunset ?: 0),
                         response.data?.main?.humidity.toString(),
                         response.data?.main?.pressure.toString(),
                         response.data?.visibility.toString(),
                         ))
-                    Log.d("kavo", listOfViewPager[1].toString())
-
                     adapter.setItems(listOfViewPager)
                 }
                 is Resource.Error -> {
