@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import com.romanmikhailenko.weaterapp.data.model.city.Location
 import com.romanmikhailenko.weaterapp.data.repositories.remote.WeatherRepository
 import com.romanmikhailenko.weaterapp.data.model.current.WeatherResponse
 import com.romanmikhailenko.weaterapp.data.model.forecast.ForecastResponse
@@ -21,6 +22,7 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
     val weatherLiveData : MutableLiveData<Resource<WeatherResponse>> = MutableLiveData()
     val forecastLiveData : MutableLiveData<Resource<ForecastResponse>> = MutableLiveData()
 
+    var coord = Location(73.37, 54.99 )
 
 
 
@@ -31,7 +33,7 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
 
 
     fun setWeather() {
-        sharedPreferences.getString("units", "metric")?.let { getWeather(54.99, 73.37, it) }
+        sharedPreferences.getString("units", "metric")?.let { getWeather(coord.latitude!!, coord.longitude!!, it) }
     }
 
 //    fun setForecast() {
@@ -50,6 +52,8 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
                 weatherLiveData.postValue(Resource.Error(message = response.message()))
             }
         }
+
+
 
 //    private fun getForecast(latitude: Double, longitude: Double, unit: String) =
 //        viewModelScope.launch {

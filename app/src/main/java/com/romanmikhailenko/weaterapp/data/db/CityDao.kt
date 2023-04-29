@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.romanmikhailenko.weaterapp.data.model.city.City
 import com.romanmikhailenko.weaterapp.data.model.city.UpdateCity
+import com.romanmikhailenko.weaterapp.data.model.current.Coord
 
 
 @Dao
@@ -22,4 +23,7 @@ interface CityDao {
 
     @Delete
     suspend fun deleteSavedCity(city: City)
+
+    @Query("SELECT * FROM city_bd WHERE name =:key")
+    fun getCoordByCity(key: String): LiveData<City>
 }

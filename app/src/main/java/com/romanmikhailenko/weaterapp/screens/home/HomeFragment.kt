@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
+import com.romanmikhailenko.weaterapp.data.model.city.Location
 import com.romanmikhailenko.weaterapp.databinding.FragmentHomeBinding
 import com.romanmikhailenko.weaterapp.screens.home.adapters.MainViewPagerAdapter
 import com.romanmikhailenko.weaterapp.screens.home.model.Details
@@ -16,6 +17,7 @@ import com.romanmikhailenko.weaterapp.screens.home.model.MainInfo
 import com.romanmikhailenko.weaterapp.utils.Resource
 import com.romanmikhailenko.weaterapp.utils.TimeUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -47,6 +49,12 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         val listOfViewPager = mutableListOf<Item>()
+        if (arguments != null) {
+            viewModel.coord =  Location(
+                (requireArguments().getDouble("lon") * 100.0).roundToInt() / 100.0,
+                (requireArguments().getDouble("lat") * 100.0).roundToInt() / 100.0)
+
+        }
 
 
         viewModel.setWeather()
@@ -64,8 +72,8 @@ class HomeFragment : Fragment() {
 //                is Resource.Loading -> {
 //                }
 //            }
-//        }
-
+////        }
+//
         viewModel.weatherLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {

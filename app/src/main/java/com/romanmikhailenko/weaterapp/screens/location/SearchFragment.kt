@@ -2,7 +2,6 @@ package com.romanmikhailenko.weaterapp.screens.location
 
 import android.database.DatabaseUtils
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +19,9 @@ import com.romanmikhailenko.weaterapp.databinding.FragmentLocationBinding
 import com.romanmikhailenko.weaterapp.screens.location.adapters.SearchAdapter
 import com.romanmikhailenko.weaterapp.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class LocationFragment : Fragment() {
+class SearchFragment : Fragment() {
     private var _binding: FragmentLocationBinding? = null
     private val mBinding get() = _binding!!
 
@@ -80,10 +78,12 @@ class LocationFragment : Fragment() {
 
     private fun setUpRecyclerView(data: List<City>) {
         val searchAdapter = SearchAdapter(SearchAdapter.OnClickListener {
-            Log.d("kavo", "pize")
+            val args = Bundle()
+            args.putString("city", it.name)
+            args.putDouble("lat", it.lat!!)
+            args.putDouble("lon", it.lon!!)
             viewModel.updateSavedCities(UpdateCity(it.id, 1))
-
-            findNavController().navigate(R.id.action_location_to_citiesFragment)
+            findNavController().navigate(R.id.action_location_to_home, args)
         })
         mBinding.rvSearchedResult.apply {
             layoutManager = LinearLayoutManager(requireContext())

@@ -36,7 +36,6 @@ class SearchAdapter(
             onClickListener.onClick(city)
         }
         holder.bind(city)
-
     }
 
     override fun getItemCount() = differ.currentList.size

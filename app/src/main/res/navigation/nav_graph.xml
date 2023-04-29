@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/location"
-        android:name="com.romanmikhailenko.weaterapp.screens.location.LocationFragment"
+        android:name="com.romanmikhailenko.weaterapp.screens.location.SearchFragment"
         android:label="Albums"
         tools:layout="@layout/fragment_location">
         <action
@@ -31,10 +31,12 @@
     </fragment>
     <fragment
         android:id="@+id/citiesFragment"
-        android:name="com.romanmikhailenko.weaterapp.screens.cities.CitiesFragment"
+        android:name="com.romanmikhailenko.weaterapp.screens.location.CitiesFragment"
         android:label="fragment_cities"
         tools:layout="@layout/fragment_cities">
-
+        <action
+            android:id="@+id/action_citiesFragment_to_home"
+            app:destination="@id/home" />
     </fragment>
     <action
         android:id="@+id/action_citiesFragment_to_location"

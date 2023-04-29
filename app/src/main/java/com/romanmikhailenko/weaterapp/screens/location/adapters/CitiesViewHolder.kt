@@ -1,4 +1,4 @@
-package com.romanmikhailenko.weaterapp.screens.cities.adapters
+package com.romanmikhailenko.weaterapp.screens.location.adapters
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -17,8 +17,8 @@ class CitiesViewHolder(
 
     fun bind(city: City) {
         with(binding) {
-            binding.tvCityTemp.text = tvCityTemp.text
-            binding.tvCountryNameSearch.text = tvCityTemp.text
+            tvCityTemp.text = city.name
+            tvCountryNameSearch.text = city.country
         }
     }
 

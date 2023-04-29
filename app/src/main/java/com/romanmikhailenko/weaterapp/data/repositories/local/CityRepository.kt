@@ -13,4 +13,6 @@ class CityRepository @Inject constructor(
     suspend fun updateSavedCities(obj: UpdateCity) = dao.updateSavedCity(obj)
     fun getSavedCities(key: Int) = dao.getSavedCity(key)
     suspend fun deleteSavedCities(city: City) = dao.deleteSavedCity(city)
+    fun getCoordByCity(key: String) = dao.getCoordByCity(key)
+
 }

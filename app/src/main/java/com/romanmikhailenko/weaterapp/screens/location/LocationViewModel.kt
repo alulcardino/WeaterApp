@@ -1,6 +1,5 @@
 package com.romanmikhailenko.weaterapp.screens.location
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -56,5 +55,18 @@ class LocationViewModel @Inject constructor(
 
     private fun handleCitySearch(response: List<City>): Resource<List<City>> =
         Resource.Success(response)
+
+    fun getSavedCities(key: Int) = repository.getSavedCities(key)
+
+    fun getCoordByCity(key: String) = repository.getCoordByCity(key)
+
+    fun deleteSavedCities(city: City) = viewModelScope.launch {
+        try {
+            repository.deleteSavedCities(city)
+        } catch (e: Exception) {
+            e.stackTrace
+            Timber.tag("Error: Updating City DB: ${e.localizedMessage}")
+        }
+    }
 
 }

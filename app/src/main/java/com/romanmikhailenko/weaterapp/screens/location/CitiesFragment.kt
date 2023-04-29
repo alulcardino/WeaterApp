@@ -1,6 +1,7 @@
-package com.romanmikhailenko.weaterapp.screens.cities
+package com.romanmikhailenko.weaterapp.screens.location
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.romanmikhailenko.weaterapp.R
+import com.romanmikhailenko.weaterapp.data.model.city.Location
+import com.romanmikhailenko.weaterapp.data.model.city.UpdateCity
 import com.romanmikhailenko.weaterapp.databinding.FragmentCitiesBinding
-import com.romanmikhailenko.weaterapp.screens.cities.adapters.CitiesAdapter
+import com.romanmikhailenko.weaterapp.screens.location.adapters.CitiesAdapter
+import com.romanmikhailenko.weaterapp.screens.location.adapters.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CitiesFragment : Fragment() {
@@ -20,7 +25,9 @@ class CitiesFragment : Fragment() {
 
     private lateinit var mAdapter: CitiesAdapter
 
-    private val viewModel by viewModels<CitiesViewModel>()
+    private val viewModel by viewModels<LocationViewModel>()
+    lateinit var coords : Location
+
 
 
     override fun onCreateView(
@@ -28,7 +35,13 @@ class CitiesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCitiesBinding.inflate(layoutInflater, container, false)
-        mAdapter = CitiesAdapter()
+        mAdapter = CitiesAdapter(CitiesAdapter.OnClickListener {
+            val args = Bundle()
+            args.putString("city", it.name)
+            args.putDouble("lat", it.lat!!)
+            args.putDouble("lon", it.lon!!)
+             findNavController().navigate(R.id.action_citiesFragment_to_home, args)
+        })
         mBinding.tvSearchCity.setOnClickListener {
             findNavController().navigate(R.id.action_citiesFragment_to_location)
         }
