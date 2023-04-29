@@ -2,10 +2,13 @@ package com.romanmikhailenko.weaterapp.screens.location
 
 import android.database.DatabaseUtils
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +20,7 @@ import com.romanmikhailenko.weaterapp.databinding.FragmentLocationBinding
 import com.romanmikhailenko.weaterapp.screens.location.adapters.SearchAdapter
 import com.romanmikhailenko.weaterapp.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LocationFragment : Fragment() {
@@ -33,9 +37,16 @@ class LocationFragment : Fragment() {
         _binding = FragmentLocationBinding.inflate(layoutInflater, container, false)
         setupObservers()
         setUpUI()
+        mBinding.svSearchCity.requestFocus()
+
         return mBinding.root
     }
 
+    override fun onStart() {
+        WindowCompat.getInsetsController(requireActivity().window, requireView())
+            .show(WindowInsetsCompat.Type.ime())
+        super.onStart()
+    }
 
 
     private fun setupObservers() {
@@ -49,6 +60,10 @@ class LocationFragment : Fragment() {
                                 rvSearchedResult.visibility = View.VISIBLE
                                 tvNoResult.visibility = View.GONE
                                 setUpRecyclerView(it.data)
+                            } else {
+                                pbSearch.visibility = View.GONE
+                                rvSearchedResult.visibility = View.GONE
+                                tvNoResult.visibility = View.VISIBLE
                             }
                         }
                         Status.ERROR -> {
@@ -64,7 +79,12 @@ class LocationFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(data: List<City>) {
-        val searchAdapter = SearchAdapter()
+        val searchAdapter = SearchAdapter(SearchAdapter.OnClickListener {
+            Log.d("kavo", "pize")
+            viewModel.updateSavedCities(UpdateCity(it.id, 1))
+
+            findNavController().navigate(R.id.action_location_to_citiesFragment)
+        })
         mBinding.rvSearchedResult.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -72,9 +92,6 @@ class LocationFragment : Fragment() {
         }
         searchAdapter.differ.submitList(data)
 
-        searchAdapter.setOnItemClickListener {
-            viewModel.updateSavedCities(UpdateCity(it.id, 1))
-        }
 
     }
 

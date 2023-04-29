@@ -54,7 +54,6 @@ class LocationViewModel @Inject constructor(
     }
 
 
-
     private fun handleCitySearch(response: List<City>): Resource<List<City>> =
         Resource.Success(response)
 

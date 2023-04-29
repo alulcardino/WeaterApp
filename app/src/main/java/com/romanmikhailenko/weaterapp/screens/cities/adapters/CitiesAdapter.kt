@@ -11,7 +11,8 @@ import com.romanmikhailenko.weaterapp.databinding.ItemWeatherMainBinding.inflate
 import com.romanmikhailenko.weaterapp.screens.location.adapters.SearchViewHolder
 import com.romanmikhailenko.weaterapp.utils.DiffUtilCallback
 
-class CitiesAdapter() : RecyclerView.Adapter<CitiesViewHolder>() {
+class CitiesAdapter(
+) : RecyclerView.Adapter<CitiesViewHolder>() {
 
     val differ = AsyncListDiffer(this, DiffUtilCallback())
 

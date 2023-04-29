@@ -29,7 +29,7 @@ class CitiesFragment : Fragment() {
     ): View? {
         _binding = FragmentCitiesBinding.inflate(layoutInflater, container, false)
         mAdapter = CitiesAdapter()
-        mBinding.button.setOnClickListener {
+        mBinding.tvSearchCity.setOnClickListener {
             findNavController().navigate(R.id.action_citiesFragment_to_location)
         }
         setUpRecyclerView()

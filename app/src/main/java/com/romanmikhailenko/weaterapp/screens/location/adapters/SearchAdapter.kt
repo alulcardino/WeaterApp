@@ -1,6 +1,8 @@
 package com.romanmikhailenko.weaterapp.screens.location.adapters
 
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
@@ -8,9 +10,13 @@ import com.romanmikhailenko.weaterapp.data.model.city.City
 import com.romanmikhailenko.weaterapp.databinding.ItemCityBinding
 import com.romanmikhailenko.weaterapp.utils.DiffUtilCallback
 
-class SearchAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
+class SearchAdapter(
+    private val onClickListener: OnClickListener
+) : RecyclerView.Adapter<SearchViewHolder>() {
 
     val differ = AsyncListDiffer(this, DiffUtilCallback())
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         return SearchViewHolder(
@@ -23,21 +29,25 @@ class SearchAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
     }
 
 
+
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(differ.currentList[position])
+        val city = differ.currentList[position]
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(city)
+        }
+        holder.bind(city)
+
     }
 
     override fun getItemCount() = differ.currentList.size
 
+    class OnClickListener(val clickListener: (city: City) -> Unit) {
+        fun onClick(city: City) = clickListener(city)
+    }
 
-    private var onItemClickListener: ((City) -> Unit)? = null
     private var onParentItemClickListener: ((City) ->Unit)? = null
 
     fun setOnParentClickListener(listener: (City) -> Unit) {
-        onItemClickListener = listener
-    }
-
-    fun setOnItemClickListener(listener: (City) -> Unit) {
         onParentItemClickListener = listener
     }
 
