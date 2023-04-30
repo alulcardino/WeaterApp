@@ -36,9 +36,9 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
         sharedPreferences.getString("units", "metric")?.let { getWeather(coord.latitude!!, coord.longitude!!, it) }
     }
 
-//    fun setForecast() {
-//        sharedPreferences.getString("units", "metric")?.let { getForecast(44.34, 10.99, it) }
-//    }
+    fun setForecast() {
+        sharedPreferences.getString("units", "metric")?.let { getForecast(44.34, 10.99, it) }
+    }
 
     private fun getWeather(latitude: Double, longitude: Double, unit: String) =
         viewModelScope.launch {
@@ -55,16 +55,16 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
 
 
 
-//    private fun getForecast(latitude: Double, longitude: Double, unit: String) =
-//        viewModelScope.launch {
-//            forecastLiveData.postValue(Resource.Loading())
-//            val response = repository.getForecast(latitude, longitude, unit)
-//            if (response.isSuccessful) {
-//                response.body().let { res ->
-//                    forecastLiveData.postValue(Resource.Success(res))
-//                }
-//            } else {
-//                forecastLiveData.postValue(Resource.Error(message = response.message()))
-//            }
-//        }
+    private fun getForecast(latitude: Double, longitude: Double, unit: String) =
+        viewModelScope.launch {
+            forecastLiveData.postValue(Resource.Loading())
+            val response = repository.getForecast(latitude, longitude, unit)
+            if (response.isSuccessful) {
+                response.body().let { res ->
+                    forecastLiveData.postValue(Resource.Success(res))
+                }
+            } else {
+                forecastLiveData.postValue(Resource.Error(message = response.message()))
+            }
+        }
 }

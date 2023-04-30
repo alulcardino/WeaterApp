@@ -1,14 +1,11 @@
 package com.romanmikhailenko.weaterapp.screens.location.adapters
 
 import android.view.LayoutInflater
-import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.romanmikhailenko.weaterapp.data.model.city.City
 import com.romanmikhailenko.weaterapp.databinding.ItemCityBinding
-import com.romanmikhailenko.weaterapp.utils.DiffUtilCallback
 
 class SearchAdapter(
     private val onClickListener: OnClickListener

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.romanmikhailenko.weaterapp.data.model.city.City
 import com.romanmikhailenko.weaterapp.databinding.ItemSavedCityBinding
-import com.romanmikhailenko.weaterapp.utils.DiffUtilCallback
 
 class CitiesAdapter(
     private val onClickListener: OnClickListener

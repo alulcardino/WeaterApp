@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.romanmikhailenko.weaterapp.data.model.city.Location
 import com.romanmikhailenko.weaterapp.databinding.FragmentHomeBinding
-import com.romanmikhailenko.weaterapp.screens.home.adapters.MainViewPagerAdapter
+import com.romanmikhailenko.weaterapp.screens.home.adapters.current.MainViewPagerAdapter
+import com.romanmikhailenko.weaterapp.screens.home.adapters.forecast.ForecastAdapter
 import com.romanmikhailenko.weaterapp.screens.home.model.Details
 import com.romanmikhailenko.weaterapp.screens.home.model.Item
 import com.romanmikhailenko.weaterapp.screens.home.model.MainInfo
@@ -27,7 +28,8 @@ class HomeFragment : Fragment() {
     private val mBinding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
-    private var adapter = MainViewPagerAdapter()
+    private var adapterCurrentWeather = MainViewPagerAdapter()
+    private var adapterForecast = ForecastAdapter()
 
 
     override fun onCreateView(
@@ -35,8 +37,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        mBinding.viewPager.adapter = adapter
-//        adapter.setItems()
+        mBinding.viewPager.adapter = adapterCurrentWeather
+        setUpRecyclerView()
         return mBinding.root
     }
 
@@ -50,48 +52,56 @@ class HomeFragment : Fragment() {
 
         val listOfViewPager = mutableListOf<Item>()
         if (arguments != null) {
-            viewModel.coord =  Location(
+            viewModel.coord = Location(
                 (requireArguments().getDouble("lon") * 100.0).roundToInt() / 100.0,
-                (requireArguments().getDouble("lat") * 100.0).roundToInt() / 100.0)
+                (requireArguments().getDouble("lat") * 100.0).roundToInt() / 100.0
+            )
 
         }
 
 
         viewModel.setWeather()
-        //viewModel.setForecast()
+        viewModel.setForecast()
 
-//        viewModel.forecastLiveData.observe(viewLifecycleOwner) { response ->
-//            when (response) {
-//                is Resource.Success -> {
-//                   }
-//                is Resource.Error -> {
-//                    response.data?.let {
-//                        Log.e("checkData", "error : $it")
-//                    }
-//                }
-//                is Resource.Loading -> {
-//                }
-//            }
-////        }
-//
+        viewModel.forecastLiveData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.list?.let {
+                        adapterForecast.setItems(it)
+                    }
+                }
+                is Resource.Error -> {
+                    response.data?.let {
+                        Log.e("checkData", "error : $it")
+                    }
+                }
+                is Resource.Loading -> {
+                }
+            }
+        }
+
         viewModel.weatherLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    listOfViewPager.add(0, MainInfo(
-                        response.data?.main?.temp.toString(),
-                        response.data?.main?.feels_like.toString(),
-                        "icon",
-                        response.data?.weather?.get(0)?.description.toString()
-                    ))
+                    listOfViewPager.add(
+                        0, MainInfo(
+                            response.data?.main?.temp.toString(),
+                            response.data?.main?.feels_like.toString(),
+                            "${response.data?.weather?.get(0)?.icon.toString()}.png",
+                            response.data?.weather?.get(0)?.description.toString()
+                        )
+                    )
 
-                    listOfViewPager.add(1, Details(
-                        TimeUtils.getTime(response.data?.sys?.sunrise ?: 0),
-                        TimeUtils.getTime(response.data?.sys?.sunset ?: 0),
-                        response.data?.main?.humidity.toString(),
-                        response.data?.main?.pressure.toString(),
-                        response.data?.visibility.toString(),
-                        ))
-                    adapter.setItems(listOfViewPager)
+                    listOfViewPager.add(
+                        1, Details(
+                            TimeUtils.getTime(response.data?.sys?.sunrise ?: 0),
+                            TimeUtils.getTime(response.data?.sys?.sunset ?: 0),
+                            response.data?.main?.humidity.toString(),
+                            response.data?.main?.pressure.toString(),
+                            response.data?.visibility.toString(),
+                        )
+                    )
+                    adapterCurrentWeather.setItems(listOfViewPager)
                 }
                 is Resource.Error -> {
                     response.data?.let {
@@ -105,4 +115,13 @@ class HomeFragment : Fragment() {
         listOfViewPager.clear()
     }
 
+
+    private fun setUpRecyclerView() {
+        mBinding.recyclerView.apply {
+            layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = adapterForecast
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.romanmikhailenko.weaterapp.utils
+package com.romanmikhailenko.weaterapp.screens.location.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.romanmikhailenko.weaterapp.data.model.city.City
@@ -11,5 +11,4 @@ class DiffUtilCallback : DiffUtil.ItemCallback<City>() {
     override fun areContentsTheSame(oldItem: City, newItem: City): Boolean {
         return oldItem == newItem
     }
-
 }

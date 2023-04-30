@@ -1,4 +1,4 @@
-package com.romanmikhailenko.weaterapp.screens.home.adapters
+package com.romanmikhailenko.weaterapp.screens.home.adapters.current
 
 import android.view.View
 import android.view.ViewGroup

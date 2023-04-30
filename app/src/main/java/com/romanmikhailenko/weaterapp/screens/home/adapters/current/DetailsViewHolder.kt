@@ -1,8 +1,5 @@
-package com.romanmikhailenko.weaterapp.screens.home.adapters
+package com.romanmikhailenko.weaterapp.screens.home.adapters.current
 
-import android.util.Log
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.romanmikhailenko.weaterapp.databinding.ItemWeatherDetailsBinding
 import com.romanmikhailenko.weaterapp.screens.home.model.Details
 
