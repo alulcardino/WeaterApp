@@ -56,7 +56,6 @@ class HomeFragment : Fragment() {
                 (requireArguments().getDouble("lon") * 100.0).roundToInt() / 100.0,
                 (requireArguments().getDouble("lat") * 100.0).roundToInt() / 100.0
             )
-
         }
 
 
@@ -76,6 +75,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is Resource.Loading -> {
+
                 }
             }
         }
@@ -85,10 +85,10 @@ class HomeFragment : Fragment() {
                 is Resource.Success -> {
                     listOfViewPager.add(
                         0, MainInfo(
-                            response.data?.main?.temp.toString(),
-                            response.data?.main?.feels_like.toString(),
-                            "${response.data?.weather?.get(0)?.icon.toString()}.png",
-                            response.data?.weather?.get(0)?.description.toString()
+                            "${response.data?.main?.temp?.toInt().toString()}°C",
+                            response.data?.weather?.get(0)?.icon.toString(),
+                            response.data?.weather?.get(0)?.description.toString(),
+                            response.data?.name.toString()
                         )
                     )
 

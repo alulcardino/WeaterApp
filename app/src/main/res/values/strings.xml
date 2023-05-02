@@ -13,13 +13,10 @@
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="units">Units</string>
+    <string name="general">General</string>
+
     <string name="app_email">piyal.developer@gmail.com</string>
     <string name="desc_add_city">addCity</string>
     <string name="desc_more">moreOptions</string>
@@ -39,8 +36,5 @@
     <string name="btn_label_forecast">7-day forecast</string>
     <string name="label_search_hint">Enter Location</string>
     <string name="txt_no_result">No results found</string>
-    <string name="text_added">Added</string>
-    <string name="text_share">Share</string>
-    <string name="txt_feedback">Feedback</string>
-    <string name="desc_delete">Delete items</string>
+    <string name="cancel">Cancel</string>
 </resources>

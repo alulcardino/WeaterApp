@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
 
+
         val navController = this.findNavController(R.id.fragmentContainerView)
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navView.setupWithNavController(navController)

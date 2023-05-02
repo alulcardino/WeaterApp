@@ -15,11 +15,11 @@ class MainViewHolder(
 ) : ViewHolderItem(binding.root) {
 
     fun bind(item: MainInfo) = with(binding) {
-        Log.d("sho" , "R.drawable.${MAP_ICONS[item.icon]}")
         val resID = binding.root.context.resources.getIdentifier("${MAP_ICONS[item.icon]}", "drawable", root.context.packageName)
-        imageView.setImageResource(resID)
-        textView2.text = item.description
-        textView3.text = item.feelsLike
+        icon.setImageResource(resID)
+        temp.text = item.temp
+        desc.text = item.description
+        tvCityName.text = item.city
     }
 
 }

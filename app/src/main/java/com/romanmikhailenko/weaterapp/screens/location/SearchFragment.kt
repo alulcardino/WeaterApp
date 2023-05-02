@@ -54,13 +54,11 @@ class SearchFragment : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             if (it.data!!.isNotEmpty()) {
-                                pbSearch.visibility = View.GONE
-                                rvSearchedResult.visibility = View.VISIBLE
+                                rvSearchedCity.visibility = View.VISIBLE
                                 tvNoResult.visibility = View.GONE
                                 setUpRecyclerView(it.data)
                             } else {
-                                pbSearch.visibility = View.GONE
-                                rvSearchedResult.visibility = View.GONE
+                                rvSearchedCity.visibility = View.GONE
                                 tvNoResult.visibility = View.VISIBLE
                             }
                         }
@@ -85,7 +83,7 @@ class SearchFragment : Fragment() {
             viewModel.updateSavedCities(UpdateCity(it.id, 1))
             findNavController().navigate(R.id.action_location_to_home, args)
         })
-        mBinding.rvSearchedResult.apply {
+        mBinding.rvSearchedCity.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = searchAdapter
@@ -117,8 +115,7 @@ class SearchFragment : Fragment() {
 
     private fun showFailedView(message: String?) {
         with(mBinding) {
-            pbSearch.visibility = View.GONE
-            rvSearchedResult.visibility = View.GONE
+            rvSearchedCity.visibility = View.GONE
             tvNoResult.visibility = View.VISIBLE
             tvNoResult.text = message
         }

@@ -29,7 +29,6 @@ class HomeViewModel  @Inject constructor(private val repository: WeatherReposito
     private val sharedPreferences = context.let {
         PreferenceManager.getDefaultSharedPreferences(it)
     }
-    fun getSharedPreferencesSettings() = sharedPreferences
 
 
     fun setWeather() {

@@ -8,7 +8,7 @@ object TimeUtils {
     @SuppressLint("SimpleDateFormat")
     private val timeFormatter = SimpleDateFormat("HH:mm")
     @SuppressLint("SimpleDateFormat")
-    private val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+    private val dateFormatter = SimpleDateFormat("dd.MM HH:mm")
 
     fun getTime(timeInMillis : Long): String {
         val cv = Calendar.getInstance()
@@ -17,8 +17,10 @@ object TimeUtils {
         return timeFormatter.format(cv.time)
     }
 
-    fun getDate(): String {
+    fun getDate(timeInMillis : Long): String {
         val cv = Calendar.getInstance()
+        timeFormatter.timeZone = TimeZone.getDefault()
+        cv.timeInMillis = timeInMillis * 1000
         return dateFormatter.format(cv.time)
     }
 }

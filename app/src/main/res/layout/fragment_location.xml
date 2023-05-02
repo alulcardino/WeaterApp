@@ -8,50 +8,41 @@
     tools:context=".screens.location.SearchFragment">
 
     <TextView
-        android:id="@+id/tv_no_result"
+        android:id="@+id/tvNoResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/TextAppearance"
         android:textSize="16sp"
         android:text="@string/txt_no_result"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_search_city"/>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/pb_search"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_search_city"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        app:layout_constraintTop_toBottomOf="@id/svSearchCity"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_searched_result"
+        android:id="@+id/rvSearchedCity"
         android:layout_width="0dp"
         android:visibility="gone"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_search_city" />
+        app:layout_constraintTop_toBottomOf="@+id/svSearchCity" />
 
     <TextView
-        android:id="@+id/tv_cancel"
+        android:id="@+id/tvCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@android:string/cancel"
+        android:text="@string/cancel"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sv_search_city"
+        app:layout_constraintBottom_toBottomOf="@+id/svSearchCity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sv_search_city" />
+        app:layout_constraintTop_toTopOf="@+id/svSearchCity" />
 
     <SearchView
-        android:id="@+id/sv_search_city"
+        android:id="@+id/svSearchCity"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -61,7 +52,7 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/label_search_hint"
         android:transitionName="@string/label_search_hint"
-        app:layout_constraintEnd_toStartOf="@+id/tv_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/tvCancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

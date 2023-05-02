@@ -17,8 +17,8 @@ class CitiesViewHolder(
 
     fun bind(city: City) {
         with(binding) {
-            tvCityTemp.text = city.name
-            tvCountryNameSearch.text = city.country
+            tvCityName.text = city.name
+            tvCountryName.text = city.country
         }
     }
 
